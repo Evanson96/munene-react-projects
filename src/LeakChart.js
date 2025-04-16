@@ -1,22 +1,39 @@
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
+import { Line } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 
-function LeakChart({ data }) {
-  const chartData = [
-    { level: 'Critical', count: data.filter(l => l.level === 'Critical').length },
-    { level: 'High', count: data.filter(l => l.level === 'High').length },
-    { level: 'Medium', count: data.filter(l => l.level === 'Medium').length }
-  ];
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-  return (
-    <BarChart width={500} height={300} data={chartData}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="level" />
-      <YAxis />
-      <Tooltip />
-      <Bar dataKey="count" fill="#8884d8" />
-    </BarChart>
-  );
-}
+const LeakChart = ({ data }) => {
+  const chartData = {
+    labels: data.map((entry) => entry.date),
+    datasets: [
+      {
+        label: 'Leakage Percentage',
+        data: data.map((entry) => entry.leakage),
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        fill: true,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Leakage Detection Trend',
+      },
+      tooltip: {
+        callbacks: {
+          label: (tooltipItem) => `${tooltipItem.raw}%`,
+        },
+      },
+    },
+  };
+
+  return <Line data={chartData} options={options} />;
+};
 
 export default LeakChart;

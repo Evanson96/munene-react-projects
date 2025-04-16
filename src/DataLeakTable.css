@@ -1,38 +1,31 @@
-.leak-container {
-    margin: 20px auto;
-    width: 85%;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: left;
-  }
-  
-  th {
-    background-color: #20232a;
-    color: white;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  .level-critical {
-    background-color: rgba(255, 0, 0, 0.1);
-    font-weight: bold;
-  }
-  
-  .level-high {
-    background-color: rgba(255, 165, 0, 0.1);
-  }
-  
-  .level-medium {
-    background-color: rgba(255, 255, 0, 0.1);
-  }
-  
+/* Styles for the data leakage table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}

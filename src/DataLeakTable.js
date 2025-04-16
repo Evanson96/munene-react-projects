@@ -1,30 +1,36 @@
 import React from 'react';
-import './DataLeakTable.css';
+import { CSVLink } from 'react-csv';
 
-function DataLeakTable({ leaks }) {
+const DataLeakTable = ({ data }) => {
+  const headers = [
+    { label: 'Date', key: 'date' },
+    { label: 'Leakage Percentage', key: 'leakage' },
+  ];
+
   return (
-    <div className="leak-container">
-      <h2>Data Leakage Detection System</h2>
+    <div>
+      <h3>Leakage Data</h3>
       <table>
         <thead>
           <tr>
-            <th>Leak Type</th>
-            <th>Severity Level</th>
-            <th>Date of Breach</th>
+            <th>Date</th>
+            <th>Leakage Percentage</th>
           </tr>
         </thead>
         <tbody>
-          {leaks.map((leak) => (
-            <tr key={leak.id} className={`level-${leak.level.toLowerCase()}`}>
-              <td>{leak.leak}</td>
-              <td>{leak.level}</td>
-              <td>{leak.date}</td>
+          {data.map((entry, index) => (
+            <tr key={index}>
+              <td>{entry.date}</td>
+              <td>{entry.leakage}</td>
             </tr>
           ))}
         </tbody>
       </table>
+      <CSVLink data={data} headers={headers} filename={"leakage-data.csv"}>
+        Export as CSV
+      </CSVLink>
     </div>
   );
-}
+};
 
 export default DataLeakTable;
